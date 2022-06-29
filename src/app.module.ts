@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { MovieModule } from './movie/movie.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { ConfigModule } from '@nestjs/config';
       database: process.env.DATABASE_NAME,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: Boolean(process.env.DATABASE_SYNCHRONIZE),
-    })
+    }),
+    MovieModule
   ],
   controllers: [AppController],
   providers: [AppService],
