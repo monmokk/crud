@@ -23,7 +23,7 @@ import { MovieModule } from './movie/movie.module';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: Boolean(process.env.DATABASE_SYNCHRONIZE),
     }),
-    MovieModule
+    MovieModule,
   ],
   controllers: [AppController],
   providers: [AppService],

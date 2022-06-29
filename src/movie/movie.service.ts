@@ -1,23 +1,35 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
+import { Movie } from './entities/movie.entity';
 
 @Injectable()
 export class MovieService {
-  create(createMovieDto: CreateMovieDto) {
-    return 'This action adds a new movie';
+  private movies: Movie[] = [];
+
+  create(movieData: CreateMovieDto) {
+    this.movies.push({
+      id: this.movies.length + 1,
+      ...movieData,
+    });
   }
 
-  findAll() {
-    return `This action returns all movie`;
+  findAll():Movie[] {
+    return this.movies;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} movie`;
+  findOne(id: number): Movie {
+    const movie = this.movies.find(movie => movie.id === id);
+    if (!movie) {
+      throw new NotFoundException(`Movie with ID ${id} not found`)
+    }
+    return movie;
   }
 
-  update(id: number, updateMovieDto: UpdateMovieDto) {
-    return `This action updates a #${id} movie`;
+  update(id: number, updateData: UpdateMovieDto) {
+    const movie = this.findOne(id);
+    this.remove(id);
+    this.movies.push({ ...movie, ...updateData });
   }
 
   remove(id: number) {
