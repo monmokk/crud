@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { MovieModule } from './movie/movie.module';
 
+
 @Module({
   imports: [
     UserModule,
